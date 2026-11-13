@@ -45,6 +45,19 @@ Keep a Changelog and the project uses semantic versioning.
   (MOD-REQ-001, MOD-REQ-002, MOD-REQ-010, MOD-REQ-066, MOD-REQ-067).
 - `theoros budget` command; `theoros sensors show` reports capabilities.
 - docs/ARCHITECTURE.md.
+- Data pipeline: reflectance conversion and normalisation, band resampling,
+  tiling and stitching (MOD-REQ-100 to MOD-REQ-102).
+- Tile store format with checksums, synthetic scene generator, dataset
+  adapters behind cards, and a guard on test splits (MOD-REQ-103 to
+  MOD-REQ-106).
+- D4-consistent geometric augmentation, spectral jitter and band dropout
+  (MOD-REQ-107, MOD-REQ-108).
+- Packing of variable band counts and balanced, rank-aware sampling
+  (MOD-REQ-109, MOD-REQ-110).
+- Masked multi-task losses and vessel heatmap targets (MOD-REQ-120,
+  MOD-REQ-121), and an integration test training every tier for one epoch
+  of synthetic data on CPU (MOD-REQ-111).
+- datasets/README.md, the synthetic dataset card and docs/TRAINING.md.
 
 ### Changed
 
@@ -55,3 +68,6 @@ Keep a Changelog and the project uses semantic versioning.
   form the nominal sizes and the 1 MiB limit refer to.
 - CI runs on every push, installs the CPU build of PyTorch, and checks the
   built wheel with `theoros budget`.
+- The dataset card template records version, checksum and adapter.
+- The vessel and fire output biases are initialised to a prior probability
+  of 0.01.

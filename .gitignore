@@ -19,9 +19,9 @@ dist/
 cmake-build-*/
 
 # Data and artefacts never go in git
-data/
-runs/
-artifacts/
+/data/
+/runs/
+/artifacts/
 *.ckpt
 
 # Editors and OS

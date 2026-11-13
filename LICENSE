@@ -1,133 +1,132 @@
-# Theoros Open License 1.0
+Theoros Open License 1.0
 
 Copyright (c) 2026 Theoros
 
-## 1. Purpose
+"Theoros" means Theoros and, on its incorporation, Theoros Oy (Helsinki,
+Finland), together with its affiliates. "Licensor" means Theoros and every
+Contributor, each for its own Contribution. "You" means the person or legal
+entity exercising rights under this license.
+
+"Materials" means everything distributed under this license, including source
+code, object code, model architectures, trained model weights and parameters,
+configuration files, documentation and data files, in any form.
+
+"Model Weights" means the numerical parameters of a trained model, including
+quantised, compiled or converted versions of them.
+
+"Derivative" means any work based on the Materials, including modified code,
+and fine-tuned, pruned, quantised, distilled or compiled models that contain a
+substantial part of the Model Weights.
+
+"Contribution" means any work submitted to Theoros for inclusion in the
+Materials. "Contributor" means the owner of a Contribution.
+
+1. Purpose
 
 This license makes the Theoros software and trained models open: anyone may
-use, study, change and share them, for any purpose, free of charge. It also
-gives every user a patent license, keeps the Theoros name and logo protected,
-and asks that credit is kept.
+use, study, change and share them, for any purpose, free of charge. It gives
+every user a patent license, keeps the Theoros name and logo protected, and
+asks that credit is kept.
 
-## 2. Definitions
+2. Copyright license
 
-**"Licensor"** means Theoros and every Contributor, each for its own
-Contribution.
+Each Licensor grants You a worldwide, royalty-free, non-exclusive, perpetual
+and irrevocable (except as stated in section 6) license to use, reproduce,
+modify, prepare Derivatives of, publicly display, publicly perform, sublicense
+and distribute the Materials and Derivatives, in any form and for any purpose,
+including commercial purposes.
 
-**"Materials"** means everything distributed under this license, including
-source code, object code, model architectures, trained model weights and
-parameters, configuration files, documentation and data files, in any form.
-
-**"Model Weights"** means the numerical parameters of a trained model,
-including quantised, compiled or converted versions of them.
-
-**"Derivative"** means any work based on the Materials, including modified
-code, fine-tuned, pruned, quantised, distilled or compiled models, and models
-trained using the Materials' code where the result contains a substantial part
-of the Model Weights.
-
-**"Contribution"** means any work submitted to Theoros for inclusion in the
-Materials. **"Contributor"** means the owner of a Contribution.
-
-**"You"** means the person or legal entity exercising rights under this
-license.
-
-## 3. Copyright license
-
-Each Licensor grants You a worldwide, royalty-free, non-exclusive,
-perpetual and irrevocable (except as stated in section 7) license to use,
-reproduce, modify, prepare Derivatives of, publicly display, publicly perform,
-sublicense and distribute the Materials and Derivatives, in any form and for
-any purpose, including commercial purposes.
-
-## 4. Patent license
+3. Patent license
 
 Each Contributor grants You a worldwide, royalty-free, non-exclusive,
-perpetual and irrevocable (except as stated in section 7) patent license to
+perpetual and irrevocable (except as stated in section 6) patent license to
 make, have made, use, offer to sell, sell, import and otherwise transfer the
-Materials, where the license is limited to patent claims that the Contributor
-can license and that are necessarily infringed by its Contribution alone or
-by its Contribution combined with the Materials to which it was submitted.
+Materials. This license is limited to patent claims that the Contributor can
+license and that are necessarily infringed by its Contribution alone, or by
+its Contribution combined with the Materials to which it was submitted.
 
-## 5. Conditions for redistribution
+4. Conditions for redistribution
 
 You may distribute the Materials or Derivatives in any medium, with or
 without modifications, provided that You:
 
-1. give every recipient a copy of this license;
-2. keep all copyright, patent, trademark and attribution notices from the
-   Materials, except notices that do not relate to any part of what You
-   distribute;
-3. mark modified files and modified Model Weights with a clear notice that
-   You changed them;
-4. if the Materials include a NOTICE file, include a readable copy of its
-   attribution notices in what You distribute, in the NOTICE file, the
-   documentation or, for models, the model card.
+(a) give every recipient a copy of this license;
+(b) keep all copyright, patent, trademark and attribution notices from the
+    Materials, except notices that do not relate to any part of what You
+    distribute;
+(c) mark modified files and modified Model Weights with a clear notice that
+    You changed them; and
+(d) if the Materials include a NOTICE file, include a readable copy of its
+    attribution notices in what You distribute, in the NOTICE file, the
+    documentation or, for models, the model card.
 
-You may license Your own changes under terms of Your choice, provided Your use
-and distribution of the Materials themselves complies with this license.
+You may license Your own changes under terms of Your choice, provided Your
+use and distribution of the Materials themselves complies with this license.
 
-## 6. Trademarks
+5. Trademarks
 
 This license grants no right to use the names, logos or trademarks of
 Theoros, including "Theoros" and "TheorosNet", except as needed to describe
 the origin of the Materials and to reproduce the NOTICE file. Derivatives
-must not be presented as made, endorsed or certified by Theoros. The brand
-terms in the theoros-brand repository govern any other use.
+must not be presented as made, endorsed or certified by Theoros. The Theoros
+Brand Terms govern any other use.
 
-## 7. Termination of the patent license
+6. Termination of the patent license
 
 If You start patent litigation, including a cross-claim or counterclaim,
 alleging that the Materials or a Contribution infringe a patent, every patent
 license granted to You under this license for those Materials ends on the
 date the litigation is filed.
 
-## 8. Contributions
+7. Contributions
 
 Unless You state otherwise in writing, any Contribution You submit for
 inclusion in the Materials is licensed under this license, without additional
-terms. A separate Contributor License Agreement, where signed, takes
-precedence.
+terms. A separate signed Contributor License Agreement takes precedence.
 
-## 9. No warranty
+8. No warranty
 
-The Materials are provided "as is", without warranty of any kind, express or
-implied, including warranties of title, non-infringement, merchantability and
-fitness for a particular purpose. Model outputs can be wrong. You are solely
-responsible for deciding whether the Materials are fit for Your use,
-including use on a spacecraft, and for testing and qualifying them.
+THE MATERIALS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING WARRANTIES OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND FITNESS FOR USE IN SPACE OR
+SAFETY-CRITICAL SYSTEMS. MODEL OUTPUTS CAN BE WRONG. YOU ARE SOLELY
+RESPONSIBLE FOR DECIDING WHETHER THE MATERIALS ARE FIT FOR YOUR USE,
+INCLUDING USE ON A SPACECRAFT, AND FOR TESTING AND QUALIFYING THEM.
 
-## 10. Limitation of liability
+9. Limitation of liability
 
-To the maximum extent permitted by law, no Licensor is liable for any
-direct, indirect, special, incidental or consequential damages arising from
-this license or from the use of the Materials, including loss of data,
-spacecraft, mission time or revenue, even if advised of the possibility of
-such damages.
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, NO LICENSOR IS LIABLE FOR ANY DIRECT,
+INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING FROM THIS
+LICENSE OR FROM THE USE OF THE MATERIALS, INCLUDING LOSS OF DATA, SPACECRAFT,
+MISSION TIME OR REVENUE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
-## 11. Your own obligations
+10. Your own obligations
 
 Nothing in this license limits what the Materials may be used for. You remain
 responsible for complying with the laws that apply to You, including export
 control and sanctions law.
 
-## 12. Severability and interpretation
+11. Severability
 
 If a provision of this license is held unenforceable, it is reformed to the
 minimum extent necessary and the rest of the license remains in force. This
-license does not create any obligation to provide support, updates or
-maintenance.
+license creates no obligation to provide support, updates or maintenance.
 
-## How to apply this license
+12. Governing law
 
-Put a copy of this file as `LICENSE` in the root of the repository, and a
-`NOTICE` file with:
+This license is governed by the laws of Finland, without regard to its
+conflict of law rules, unless mandatory law provides otherwise.
 
-```
-TheorosNet and related Materials
-Copyright (c) 2026 Theoros
-Licensed under the Theoros Open License 1.0.
-```
+END OF TERMS
+
+How to apply this license
+
+Put a copy of this text in a file named LICENSE in the root of the
+repository, and a file named NOTICE containing:
+
+    TheorosNet and related Materials
+    Copyright (c) 2026 Theoros
+    Licensed under the Theoros Open License 1.0.
 
 For model releases, state the license in the model card and keep the NOTICE
 text in the card.

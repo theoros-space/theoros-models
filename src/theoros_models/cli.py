@@ -8,6 +8,14 @@ import argparse
 import sys
 from collections.abc import Sequence
 
+from theoros_models.arch import (
+    FLIGHT_INT8_BYTES_LIMIT,
+    FLIGHT_PARAMETER_LIMIT,
+    TIER_TOLERANCE,
+    TIERS,
+)
+from theoros_models.budget import compute_budget
+from theoros_models.capabilities import assess_profile
 from theoros_models.sensors import (
     ProfileError,
     SensorProfile,
@@ -39,7 +47,39 @@ def _format_profile(profile: SensorProfile) -> str:
         lines.append(
             f"{band.name:<14}{band.centre_nm:>10.1f}{band.fwhm_nm:>10.1f}{band.gsd_m:>8.1f}  {srf}"
         )
+    lines += ["", "capabilities", assess_profile(profile).format()]
     return "\n".join(lines)
+
+
+def _budget(args: argparse.Namespace) -> int:
+    names = list(TIERS) if args.tier == "all" else [args.tier]
+    print(
+        f"{'tier':<6}{'bands':>6}{'training':>10}{'flight':>9}{'nominal':>9}{'dev %':>7}"
+        f"{'int8 B':>9}{'MMAC':>9}{'peak act B':>12}  verdict"
+    )
+    status = EXIT_OK
+    for name in names:
+        spec = TIERS[name]
+        budget = compute_budget(spec, bands=args.bands)
+        deviation = 100.0 * (budget.flight_parameters / spec.nominal_parameters - 1.0)
+        ok = (
+            budget.flight_parameters < FLIGHT_PARAMETER_LIMIT
+            and budget.int8_bytes <= FLIGHT_INT8_BYTES_LIMIT
+            and abs(deviation) <= 100.0 * TIER_TOLERANCE
+        )
+        status = status if ok else EXIT_INVALID
+        print(
+            f"{name:<6}{args.bands:>6}{budget.training_parameters:>10}"
+            f"{budget.flight_parameters:>9}{spec.nominal_parameters:>9}{deviation:>7.2f}"
+            f"{budget.int8_bytes:>9}{budget.macs / 1e6:>9.1f}{budget.peak_activation_bytes:>12}"
+            f"  {'within budget' if ok else 'OVER BUDGET'}"
+        )
+    print(
+        f"limits: flight parameters below {FLIGHT_PARAMETER_LIMIT}, int8 weights and int32 "
+        f"biases at most {FLIGHT_INT8_BYTES_LIMIT} B, tier within "
+        f"{100.0 * TIER_TOLERANCE:g} % of nominal"
+    )
+    return status
 
 
 def _sensors_list(_: argparse.Namespace) -> int:
@@ -98,6 +138,18 @@ def build_parser() -> argparse.ArgumentParser:
     validate = actions.add_parser("validate", help="validate profile YAML files")
     validate.add_argument("paths", nargs="+", help="profile YAML files")
     validate.set_defaults(handler=_sensors_validate)
+
+    budget = commands.add_parser("budget", help="print the analytic flight budget of the tiers")
+    budget.add_argument("--tier", choices=[*TIERS, "all"], default="all")
+    budget.add_argument(
+        "--bands",
+        type=int,
+        choices=range(3, 14),
+        default=13,
+        metavar="{3..13}",
+        help="band count of the compiled stem (default 13, the largest)",
+    )
+    budget.set_defaults(handler=_budget)
     return parser
 
 

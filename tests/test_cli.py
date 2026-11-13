@@ -79,3 +79,28 @@ def test_usage_error(capsys: pytest.CaptureFixture[str]) -> None:
         main(["sensors"])
     assert caught.value.code == 2
     assert "usage:" in capsys.readouterr().err
+
+
+def test_sensors_show_capabilities(capsys: pytest.CaptureFixture[str]) -> None:
+    assert main(["sensors", "show", "planetscope_superdove"]) == 0
+    out = capsys.readouterr().out
+    assert "capabilities" in out
+    assert "fire        disabled" in out
+
+
+def test_budget(capsys: pytest.CaptureFixture[str]) -> None:
+    assert main(["budget"]) == 0
+    out = capsys.readouterr().out
+    for tier in ("nano", "base", "max"):
+        assert f"\n{tier:<6}    13" in out
+    assert out.count("within budget") == 3
+    assert main(["budget", "--tier", "nano", "--bands", "3"]) == 0
+    assert "nano       3" in capsys.readouterr().out
+
+
+def test_budget_reports_violation(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    monkeypatch.setattr("theoros_models.cli.FLIGHT_PARAMETER_LIMIT", 100_000)
+    assert main(["budget"]) == 1
+    assert capsys.readouterr().out.count("OVER BUDGET") == 2

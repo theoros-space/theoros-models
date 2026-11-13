@@ -13,6 +13,7 @@ Identifier ranges group the requirements by component:
 | 001 to 019 | System and flight budget |
 | 020 to 039 | Sensor profiles and spectral response |
 | 040 to 059 | Fixed-point numerics |
+| 060 to 099 | Architecture, capability gating and budget |
 | 220 to 239 | Command-line interface |
 
 Status: baseline, November 2026. Changes need approval from the CTO.
@@ -22,12 +23,12 @@ Status: baseline, November 2026. Changes need approval from the CTO.
 ```text
 MOD-REQ-001  A flight model shall have fewer than 1,000,000 parameters after
              BatchNorm folding and D4 expansion.
-             Verification: analysis, CI
-             Status: open
+             Verification: analysis, CI (tests/test_budget.py::test_flight_limits)
+             Status: verified
 
 MOD-REQ-002  Its int8 weights and int32 biases shall fit in 1 MiB.
-             Verification: analysis, CI
-             Status: open
+             Verification: analysis, CI (tests/test_budget.py::test_flight_limits)
+             Status: verified
 
 MOD-REQ-003  The same trained weights shall compile for any sensor with 3 to
              13 bands between 400 and 2400 nm.
@@ -36,8 +37,9 @@ MOD-REQ-003  The same trained weights shall compile for any sensor with 3 to
 
 MOD-REQ-004  A head shall be disabled when the sensor lacks the spectral
              bands its task physically needs.
-             Verification: test
-             Status: open
+             Verification: test (tests/test_capabilities.py,
+             tests/test_model.py::test_gating_skips_unsupported_heads)
+             Status: verified
 
 MOD-REQ-005  The compiled network shall use only the operators in the flight
              operator set.
@@ -51,8 +53,8 @@ MOD-REQ-006  The compiled network shall match the training network within
 
 MOD-REQ-007  The lift layer shall be exactly equivariant to the 8 symmetries
              of the square.
-             Verification: test
-             Status: open
+             Verification: test (tests/layers/test_d4.py::test_lift_exact_on_integers)
+             Status: verified
 
 MOD-REQ-008  Every released model shall ship a model card with accuracy,
              size and latency per target.
@@ -64,17 +66,18 @@ MOD-REQ-009  The model shall take square tiles of 256 x 256 pixels of L1C
              Verification: test
              Status: open
 
-MOD-REQ-010  The three tiers shall have, before compilation, a parameter
-             count within 5 percent of their nominal size: nano 63,000,
-             base 450,000 and max 890,000.
-             Verification: analysis, CI
-             Status: open
+MOD-REQ-010  The flight graph of each tier, compiled for 13 bands with all
+             heads, shall have a parameter count within 5 percent of its
+             nominal size: nano 63,000, base 450,000 and max 890,000.
+             Verification: analysis, CI (tests/test_budget.py::test_tier_sizes)
+             Status: verified
 
 MOD-REQ-011  The backbone shall produce features at strides 4, 8 and 16,
              and the neck shall fuse them back to stride 4 for the dense
              heads cloud mask, land and water, vessels and active fire.
-             Verification: test
-             Status: open
+             Verification: test (tests/test_model.py::test_feature_strides,
+             tests/test_model.py::test_output_shapes)
+             Status: verified
 
 MOD-REQ-012  The flight graph shall be exported as ONNX opset 17 with static
              shapes only.
@@ -168,6 +171,71 @@ MOD-REQ-031  The package shall ship a validated catalogue with the profiles
              validity and citation; inspection against the primary source
              for the band values
              Status: open: values not yet verified against the primary source
+```
+
+## Architecture, capability gating and budget
+
+The design behind these requirements is in [ARCHITECTURE.md](ARCHITECTURE.md).
+
+```text
+MOD-REQ-060  The spectral stem shall generate one 1 x 1 kernel per band and
+             a bias from the centre wavelength, FWHM and GSD of every band
+             of the set. Its output shall not depend on the order of the
+             bands or on padded band slots, and shall equal a plain 1 x 1
+             convolution with the generated weights.
+             Verification: test (tests/layers/test_stem.py)
+             Status: verified
+
+MOD-REQ-061  The stem shall accept every valid band set of 3 to 13 bands
+             between 400 and 2400 nm and produce finite outputs.
+             Verification: test (tests/property/test_stem_properties.py)
+             Status: verified
+
+MOD-REQ-062  The D4 group action on trivial and regular feature maps shall
+             be a representation: the identity acts trivially and acting
+             with h then g equals acting with g h.
+             Verification: test (tests/layers/test_d4.py::test_regular_action_is_representation)
+             Status: verified
+
+MOD-REQ-063  Every layer and the whole network shall be equivariant to D4:
+             transforming the input by a symmetry of the square transforms
+             every dense output by the same symmetry. The deviation shall
+             be at most 1e-9 in float64 and 1e-4 relative to the output
+             magnitude in float32, for square tiles whose side is a
+             multiple of 16.
+             Verification: test (tests/test_model.py::test_network_equivariance,
+             tests/layers/test_d4.py, tests/layers/test_blocks.py)
+             Status: verified
+
+MOD-REQ-064  Each head shall produce trivial output maps at stride 4 with the
+             channels: cloud 4 class logits (clear, thick cloud, thin cloud,
+             cloud shadow), land and water 1 water logit, vessel 3 channels
+             (centre logit, log length in m, log width in m), active fire
+             1 logit.
+             Verification: test (tests/test_model.py::test_output_shapes)
+             Status: verified
+
+MOD-REQ-065  Capability gating shall follow the window table of
+             capabilities.py and docs/ARCHITECTURE.md, and every disabled
+             head shall be reported with each missing need and its physical
+             reason.
+             Verification: test (tests/test_capabilities.py), inspection
+             Status: verified
+
+MOD-REQ-066  The budget shall be computed analytically from the tier
+             definition. Its training parameter count shall equal the
+             parameters of the built network, and its flight weight and
+             bias counts shall equal the expanded tensors of that network.
+             Verification: test (tests/test_budget.py::test_analytic_matches_module)
+             Status: verified
+
+MOD-REQ-067  The budget shall report multiply-accumulates per tile and peak
+             int8 activation memory for 256 x 256 tiles, and the command
+             theoros budget shall print the flight budget of every tier and
+             exit non-zero if any tier breaks MOD-REQ-001, MOD-REQ-002 or
+             MOD-REQ-010.
+             Verification: test (tests/test_budget.py, tests/test_cli.py::test_budget)
+             Status: verified
 ```
 
 ## Fixed-point numerics

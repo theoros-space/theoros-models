@@ -1,0 +1,20 @@
+# SPDX-License-Identifier: LicenseRef-Theoros-Open-1.0
+# Copyright (c) 2026 Theoros
+schema_version: 1
+name: test_5band
+platform: Test
+instrument: Test 5-band imager
+description: >-
+  A synthetic profile for tests. It combines visible, near-infrared and both
+  shortwave infrared windows with mixed GSD, so capability gating and the
+  stem are exercised on a sensor that matches no catalogue instrument.
+reference: Theoros test profile, not a real instrument.
+encoding:
+  scale: 1.0e-4
+  offset: 0.0
+bands:
+  - {name: blue, centre_nm: 485.0, fwhm_nm: 70.0, gsd_m: 10.0}
+  - {name: red, centre_nm: 660.0, fwhm_nm: 35.0, gsd_m: 10.0}
+  - {name: nir, centre_nm: 860.0, fwhm_nm: 40.0, gsd_m: 10.0}
+  - {name: swir1, centre_nm: 1620.0, fwhm_nm: 90.0, gsd_m: 20.0}
+  - {name: swir2, centre_nm: 2190.0, fwhm_nm: 160.0, gsd_m: 20.0}

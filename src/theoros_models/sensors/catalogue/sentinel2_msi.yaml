@@ -1,0 +1,31 @@
+# SPDX-License-Identifier: LicenseRef-Theoros-Open-1.0
+# Copyright (c) 2026 Theoros
+schema_version: 1
+name: sentinel2_msi
+platform: Sentinel-2A
+instrument: MSI
+description: >-
+  All 13 MSI bands of Sentinel-2A. Bandwidths are the published values and
+  are used as FWHM. L1C products from processing baseline 04.00 onward store
+  reflectance as (DN - 1000) / 10000.
+reference: >-
+  ESA, Sentinel-2 MSI spectral bands (central wavelength and bandwidth,
+  Sentinel-2A), SentiWiki; ESA, Sentinel-2 Products Specification Document,
+  processing baseline 04.00 radiometric offset.
+encoding:
+  scale: 1.0e-4
+  offset: -0.1
+bands:
+  - {name: B01, centre_nm: 442.7, fwhm_nm: 21.0, gsd_m: 60.0}
+  - {name: B02, centre_nm: 492.4, fwhm_nm: 66.0, gsd_m: 10.0}
+  - {name: B03, centre_nm: 559.8, fwhm_nm: 36.0, gsd_m: 10.0}
+  - {name: B04, centre_nm: 664.6, fwhm_nm: 31.0, gsd_m: 10.0}
+  - {name: B05, centre_nm: 704.1, fwhm_nm: 15.0, gsd_m: 20.0}
+  - {name: B06, centre_nm: 740.5, fwhm_nm: 15.0, gsd_m: 20.0}
+  - {name: B07, centre_nm: 782.8, fwhm_nm: 20.0, gsd_m: 20.0}
+  - {name: B08, centre_nm: 832.8, fwhm_nm: 106.0, gsd_m: 10.0}
+  - {name: B8A, centre_nm: 864.7, fwhm_nm: 21.0, gsd_m: 20.0}
+  - {name: B09, centre_nm: 945.1, fwhm_nm: 20.0, gsd_m: 60.0}
+  - {name: B10, centre_nm: 1373.5, fwhm_nm: 31.0, gsd_m: 60.0}
+  - {name: B11, centre_nm: 1613.7, fwhm_nm: 91.0, gsd_m: 20.0}
+  - {name: B12, centre_nm: 2202.4, fwhm_nm: 175.0, gsd_m: 20.0}

@@ -1,0 +1,19 @@
+# SPDX-License-Identifier: LicenseRef-Theoros-Open-1.0
+# Copyright (c) 2026 Theoros
+schema_version: 1
+name: generic_cubesat_4band
+platform: Generic CubeSat
+instrument: Generic 4-band imager
+description: >-
+  A representative visible and near-infrared imager for small satellites. It
+  describes no real instrument and serves as a template for customer
+  profiles.
+reference: Theoros reference profile, not a real instrument.
+encoding:
+  scale: 1.0e-4
+  offset: 0.0
+bands:
+  - {name: blue, centre_nm: 490.0, fwhm_nm: 60.0, gsd_m: 5.0}
+  - {name: green, centre_nm: 560.0, fwhm_nm: 40.0, gsd_m: 5.0}
+  - {name: red, centre_nm: 665.0, fwhm_nm: 40.0, gsd_m: 5.0}
+  - {name: nir, centre_nm: 842.0, fwhm_nm: 100.0, gsd_m: 5.0}

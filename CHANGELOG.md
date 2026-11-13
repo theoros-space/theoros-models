@@ -22,6 +22,8 @@ Keep a Changelog and the project uses semantic versioning.
   responses and band-equivalent reflectance on a 1 nm grid.
 - Catalogue of six profiles: Sentinel-2A MSI, Landsat 8 OLI, Landsat 9 OLI-2,
   PlanetScope SuperDove, a generic 4-band CubeSat and a 5-band test sensor.
+  Band values of the real instruments are not yet verified against their
+  primary source documents (MOD-REQ-031 open).
 - Fixed-point numerics shared with theoros-edge: rounding modes, saturating
   arithmetic, Q31 multipliers, high multiplication, requantisation and affine
   int8 quantisation, specified in docs/NUMERICS.md.

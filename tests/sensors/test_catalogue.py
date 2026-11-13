@@ -39,6 +39,11 @@ def test_catalogue_profile_valid(name: str) -> None:
     assert profile.reference.strip()
     if name in NOT_REAL:
         assert "not a real instrument" in profile.reference
+    else:
+        # MOD-REQ-031 stays open until the band values are checked against the
+        # cited documents; the profiles must not present them as verified.
+        assert "not yet verified against the primary source" in profile.description
+        assert "version" in profile.reference or "issue" in profile.reference
 
 
 def test_band_counts() -> None:

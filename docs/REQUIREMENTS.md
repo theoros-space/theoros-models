@@ -3,8 +3,8 @@
 Every requirement has an identifier, a statement and a verification method
 (test, analysis or inspection). A test reference names the test that proves
 it. Status is `verified` when that verification exists and passes on `main`,
-and `open` while the verifying work is still to land; an open requirement is
-never reported as met.
+and `open` while the verifying work is still to land, optionally followed by
+the reason; an open requirement is never reported as met.
 
 Identifier ranges group the requirements by component:
 
@@ -161,9 +161,13 @@ MOD-REQ-030  A profile shall declare the affine encoding from stored pixel
 MOD-REQ-031  The package shall ship a validated catalogue with the profiles
              sentinel2_msi, landsat8_oli, landsat9_oli2,
              planetscope_superdove, generic_cubesat_4band and test_5band.
-             Each real instrument profile shall cite its public source.
-             Verification: test (tests/sensors/test_catalogue.py)
-             Status: verified
+             Each real instrument profile shall cite the title and version
+             of its primary source document, and its band values shall
+             match that document.
+             Verification: test (tests/sensors/test_catalogue.py) for schema
+             validity and citation; inspection against the primary source
+             for the band values
+             Status: open: values not yet verified against the primary source
 ```
 
 ## Fixed-point numerics

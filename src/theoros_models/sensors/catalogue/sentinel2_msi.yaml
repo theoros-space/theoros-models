@@ -5,13 +5,16 @@ name: sentinel2_msi
 platform: Sentinel-2A
 instrument: MSI
 description: >-
+  Band values are not yet verified against the primary source.
   All 13 MSI bands of Sentinel-2A. Bandwidths are the published values and
   are used as FWHM. L1C products from processing baseline 04.00 onward store
   reflectance as (DN - 1000) / 10000.
 reference: >-
-  ESA, Sentinel-2 MSI spectral bands (central wavelength and bandwidth,
-  Sentinel-2A), SentiWiki; ESA, Sentinel-2 Products Specification Document,
-  processing baseline 04.00 radiometric offset.
+  ESA, COPE-GSEG-EOPG-TN-15-0007, Sentinel-2 Spectral Response Functions
+  (S2-SRF), issue not yet confirmed (band centres and bandwidths, Sentinel-2A);
+  ESA, S2-PDGS-TAS-DI-PSD, Sentinel-2 Products Specification Document, issue
+  14.9 to be confirmed (radiometric offset from processing baseline
+  04.00).
 encoding:
   scale: 1.0e-4
   offset: -0.1

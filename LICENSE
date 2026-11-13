@@ -1,0 +1,89 @@
+Theoros Source-Available License 1.0
+
+Copyright (c) 2026 Theoros. All rights reserved.
+
+"Theoros", "we" and "us" mean Theoros and, on its incorporation, Theoros Oy
+(Helsinki, Finland), together with its affiliates. "Software" means the source
+code, models, model weights, data, documentation and other material in this
+repository. "You" means any person or organisation that accesses the Software.
+
+1. Why this repository is public
+
+We publish the Software so that customers, partners, investors, space agencies
+and researchers can see how Theoros works. Publishing it does not make it open
+source. This license is the only permission you receive.
+
+2. What you may do
+
+Subject to this license, Theoros grants you a personal, worldwide,
+non-exclusive, non-transferable, non-sublicensable and revocable right to:
+
+(a) view and read the Software, and make the copies that your computer needs
+    to do so;
+(b) evaluate the Software for the purpose of deciding whether to enter into a
+    business, research or investment relationship with Theoros;
+(c) study the Software for personal, non-commercial learning;
+(d) review the Software for security weaknesses and report them to Theoros as
+    described in SECURITY.md; and
+(e) fork the repository on GitHub to the extent the GitHub Terms of Service
+    require, provided the fork is used only for (a) to (d).
+
+3. What you may not do
+
+Unless Theoros agrees in a signed written agreement, you may not:
+
+(a) run, deploy or operate the Software, or any part of it, in production, in
+    a commercial service, on any spacecraft, payload, ground station or other
+    operational system;
+(b) modify, translate, adapt or create derivative works of the Software;
+(c) copy, distribute, publish, sell, rent, lease, sublicense or otherwise make
+    the Software available to anyone, except by linking to this repository;
+(d) use the Software, or any output, architecture, weights or data from it, to
+    train, distil, fine-tune, benchmark for publication, or design any machine
+    learning model or product that competes with Theoros;
+(e) reverse engineer or extract model weights or training data, except to the
+    extent applicable law expressly permits it despite this restriction; or
+(f) remove or change any copyright, license or trademark notice.
+
+4. Contributions
+
+We welcome issues and discussion. Code contributions are accepted only after
+the contributor signs the Theoros Contributor License Agreement. By submitting
+a contribution you confirm you have the right to do so and agree that Theoros
+may use it without restriction.
+
+5. Patents and trademarks
+
+This license grants no patent license and no right to use the names, logos or
+trademarks of Theoros, except to identify the origin of the Software.
+
+6. Export control
+
+The Software may relate to space technology and may be subject to export
+control and sanctions laws, including the EU Dual-Use Regulation. You are
+responsible for complying with them.
+
+7. Termination
+
+This license ends automatically if you breach it. When it ends you must stop
+using the Software and delete all copies in your possession. Sections 3, 5, 8
+and 9 survive termination.
+
+8. No warranty and limitation of liability
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT AND
+FITNESS FOR USE IN SPACE OR SAFETY-CRITICAL SYSTEMS. TO THE MAXIMUM EXTENT
+PERMITTED BY LAW, THEOROS IS NOT LIABLE FOR ANY CLAIM, DAMAGE OR OTHER
+LIABILITY ARISING FROM THE SOFTWARE OR ITS USE.
+
+9. Governing law
+
+This license is governed by the laws of Finland, without regard to its
+conflict of law rules. The District Court of Helsinki has exclusive
+jurisdiction, unless mandatory law provides otherwise.
+
+10. Commercial licenses
+
+Commercial, research and flight licenses are available. Contact
+licensing@theoros.space.

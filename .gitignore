@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Build
+build/
+dist/
+cmake-build-*/
+
+# Data and artefacts never go in git
+data/
+runs/
+artifacts/
+*.ckpt
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+
+# Secrets
+.env
+*.pem
+*.key

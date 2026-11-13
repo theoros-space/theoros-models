@@ -14,6 +14,8 @@ Identifier ranges group the requirements by component:
 | 020 to 039 | Sensor profiles and spectral response |
 | 040 to 059 | Fixed-point numerics |
 | 060 to 099 | Architecture, capability gating and budget |
+| 100 to 119 | Data pipeline |
+| 120 to 139 | Losses and training |
 | 220 to 239 | Command-line interface |
 
 Status: baseline, November 2026. Changes need approval from the CTO.
@@ -235,6 +237,105 @@ MOD-REQ-067  The budget shall report multiply-accumulates per tile and peak
              exit non-zero if any tier breaks MOD-REQ-001, MOD-REQ-002 or
              MOD-REQ-010.
              Verification: test (tests/test_budget.py, tests/test_cli.py::test_budget)
+             Status: verified
+```
+
+## Data pipeline
+
+```text
+MOD-REQ-100  Tiling shall cover every pixel of an image with square windows
+             of the tile size that stay inside the image, padding images
+             smaller than a tile, and stitching shall average overlapping
+             tile predictions back into the image.
+             Verification: test (tests/data/test_tiles.py)
+             Status: verified
+
+MOD-REQ-101  Stored pixel values shall be converted to TOA reflectance with
+             the profile encoding, and the model input shall be
+             (clip(reflectance, 0, 1.5) - 0.2) / 0.2.
+             Verification: test (tests/data/test_tiles.py::test_reflectance_and_normalisation)
+             Status: verified
+
+MOD-REQ-102  Bands of different GSD shall be brought to a common grid by
+             nearest-neighbour upsampling or block-mean downsampling by
+             integer factors; downsampling shall preserve the mean.
+             Verification: test (tests/data/test_tiles.py::test_band_resampling)
+             Status: verified
+
+MOD-REQ-103  Every dataset adapter shall name a dataset card in datasets/
+             that records source, version, license, commercial use,
+             checksum and split definition. Datasets shall never be stored
+             in git.
+             Verification: test (tests/data/test_datasets.py::test_cards_complete), inspection
+             Status: verified
+
+MOD-REQ-104  The tile store shall hold stored values as uint16 through the
+             profile encoding, labels, the sensor profiles and a SHA-256 per
+             sample file; reading shall reproduce the written samples within
+             half an encoding step and reject a file whose checksum differs.
+             Verification: test (tests/data/test_datasets.py::test_tile_store_roundtrip,
+             tests/data/test_datasets.py::test_tile_store_detects_corruption)
+             Status: verified
+
+MOD-REQ-105  A test split shall be readable only when evaluation is
+             requested explicitly, so that training and model selection
+             cannot use it.
+             Verification: test (tests/data/test_datasets.py::test_test_split_guarded)
+             Status: verified
+
+MOD-REQ-106  A synthetic scene generator shall render labelled multi-sensor
+             tiles for any valid band set, deterministically from a seed,
+             with labels consistent with the rendered materials, so that CI
+             never downloads data.
+             Verification: test (tests/data/test_synthetic.py)
+             Status: verified
+
+MOD-REQ-107  Geometric augmentation shall apply the same symmetry of the
+             square to the image, every dense label and the vessel centres,
+             with the convention of layers/d4.py.
+             Verification: test (tests/data/test_augment.py::test_symmetry_matches_model_convention,
+             tests/data/test_augment.py::test_vessel_points_follow_pixels)
+             Status: verified
+
+MOD-REQ-108  Spectral augmentation shall perturb per-band gain and offset
+             and add pixel noise; band dropout shall keep 3 or more bands in
+             their original order with matching metadata.
+             Verification: test (tests/data/test_augment.py)
+             Status: verified
+
+MOD-REQ-109  Samples with different band counts shall be packed into one
+             batch with a band mask, unlabelled dense pixels marked 255, a
+             per-sample label presence mask, and padded vessel lists.
+             Verification: test (tests/data/test_packing.py)
+             Status: verified
+
+MOD-REQ-110  The sampler shall draw every group of sensor and labelled tasks
+             with equal probability unless weights are given, depend only on
+             seed and epoch, and give distributed ranks disjoint shares of
+             the same draw sequence.
+             Verification: test (tests/data/test_sampler.py)
+             Status: verified
+
+MOD-REQ-111  One epoch of synthetic multi-sensor data shall train every tier
+             on CPU with finite losses and updates to every parameter.
+             Verification: test (tests/integration/test_epoch.py)
+             Status: verified
+```
+
+## Losses and training
+
+```text
+MOD-REQ-120  Each head loss shall average over the samples that carry its
+             label and whose band set supports the head; other samples shall
+             contribute zero loss and zero gradient through that head, and
+             pixels marked 255 shall be ignored.
+             Verification: test (tests/test_losses.py::test_masking)
+             Status: verified
+
+MOD-REQ-121  Vessel targets shall be Gaussian centre heatmaps at stride 4
+             with log length and log width at the centre pixels, and the
+             target of a transformed tile shall be the transformed target.
+             Verification: test (tests/test_losses.py::test_vessel_targets_equivariant)
              Status: verified
 ```
 

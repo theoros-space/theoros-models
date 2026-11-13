@@ -4,10 +4,10 @@
   <img src="https://raw.githubusercontent.com/theoros-space/theoros-brand/main/github/banners/models-light.png" width="100%" alt="theoros-models">
 </picture>
 
-<p><a href="LICENSE"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/theoros-space/theoros-brand/main/github/badges/license-source-available-1-0-dark.png"><img src="https://raw.githubusercontent.com/theoros-space/theoros-brand/main/github/badges/license-source-available-1-0-light.png" height="31" alt="license: source-available 1.0"></picture></a> <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/theoros-space/theoros-brand/main/github/badges/status-pre-release-dark.png"><img src="https://raw.githubusercontent.com/theoros-space/theoros-brand/main/github/badges/status-pre-release-light.png" height="31" alt="status: pre-release"></picture> <a href="https://github.com/theoros-space"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/theoros-space/theoros-brand/main/github/badges/part-01-of-06-dark.png"><img src="https://raw.githubusercontent.com/theoros-space/theoros-brand/main/github/badges/part-01-of-06-light.png" height="31" alt="part: 01 of 06"></picture></a></p>
+<p><a href="LICENSE"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/theoros-space/theoros-brand/main/github/badges/license-theoros-open-1-0-dark.png"><img src="https://raw.githubusercontent.com/theoros-space/theoros-brand/main/github/badges/license-theoros-open-1-0-light.png" height="31" alt="license: Theoros Open 1.0"></picture></a> <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/theoros-space/theoros-brand/main/github/badges/status-pre-release-dark.png"><img src="https://raw.githubusercontent.com/theoros-space/theoros-brand/main/github/badges/status-pre-release-light.png" height="31" alt="status: pre-release"></picture> <a href="https://github.com/theoros-space"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/theoros-space/theoros-brand/main/github/badges/part-01-of-06-dark.png"><img src="https://raw.githubusercontent.com/theoros-space/theoros-brand/main/github/badges/part-01-of-06-light.png" height="31" alt="part: 01 of 06"></picture></a></p>
 
 > [!NOTE]
-> **Status:** Pre-release. The repository is public so partners and reviewers can follow the work. Source code lands here from December 2026.
+> **Status:** Pre-release. Code and trained weights will be published here as open source from December 2026.
 
 ## Overview
 
@@ -107,10 +107,18 @@ Report vulnerabilities privately as described in the
 
 ## License
 
-Source-available under the [Theoros Source-Available License 1.0](LICENSE).
-You may read and evaluate this repository. Production use, modification,
-redistribution and training competing models need a written license from
-Theoros: licensing@theoros.space. See [which license applies where](https://github.com/theoros-space/.github/blob/main/LICENSING.md).
+Open source under the [Theoros Open License 1.0](LICENSE): code **and** trained
+model weights. Use, study, change and share them for any purpose, commercial
+included, free of charge. Keep the [NOTICE](NOTICE), mark your changes, and do
+not present derivatives as made or endorsed by Theoros; the name and logo stay
+protected by the [brand terms](https://github.com/theoros-space/theoros-brand).
+Every contributor grants a patent license. See [which license applies where](https://github.com/theoros-space/.github/blob/main/LICENSING.md).
+
+## Acknowledgement
+
+Development, porting and evaluation of TheorosNet use EuroHPC JU Development
+Access on MeluXina, hosted by LuxProvide in Luxembourg (proposal
+EHPC-DEV-2026D11-257). Results from this work are published openly.
 
 ---
 

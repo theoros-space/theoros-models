@@ -1,0 +1,102 @@
+# SPDX-License-Identifier: LicenseRef-Theoros-Open-1.0
+# Copyright (c) 2026 Theoros
+
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "theoros-models"
+description = "TheorosNet: band-flexible multi-task network for onboard Earth observation, with training, sensor compiler and flight export."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.11"
+authors = [{ name = "Theoros" }]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Scientific/Engineering :: Image Recognition",
+  "Typing :: Typed",
+]
+dependencies = [
+  "numpy>=1.26,<3",
+  "pydantic>=2.7,<3",
+  "pyyaml>=6.0,<7",
+]
+dynamic = ["version"]
+
+[project.scripts]
+theoros = "theoros_models.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/theoros-space/theoros-models"
+
+[dependency-groups]
+dev = [
+  "hypothesis>=6.100",
+  "mypy>=1.11",
+  "pytest>=8.2",
+  "pytest-cov>=5.0",
+  "ruff>=0.6",
+  "types-pyyaml>=6.0",
+]
+
+[tool.hatch.version]
+path = "src/theoros_models/version.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/theoros_models"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests", "scripts"]
+
+[tool.ruff.lint]
+select = [
+  "ARG", "B", "C4", "D", "E", "ERA", "F", "I", "N", "NPY", "PL", "PT", "PTH",
+  "RET", "RUF", "SIM", "T20", "UP", "W",
+]
+ignore = [
+  "D105",    # magic methods are documented by the protocol they implement
+  "D107",    # __init__ arguments are documented on the class
+  "PLR0913", # numerical kernels take many explicit arguments by design
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["D", "PLR2004"]
+"scripts/**" = ["T201"]
+"src/theoros_models/cli.py" = ["T201"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_unreachable = true
+files = ["src", "tests", "scripts"]
+plugins = ["pydantic.mypy"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = ["-ra", "--strict-markers", "--strict-config"]
+xfail_strict = true
+filterwarnings = ["error"]
+
+[tool.coverage.run]
+branch = true
+source = ["theoros_models"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+exclude_also = ["if TYPE_CHECKING:", "raise NotImplementedError", "@overload"]
+
+# Per-path floors enforced by scripts/check_coverage.py on line and branch
+# coverage separately. The first matching prefix wins; "" is the package floor.
+[tool.theoros.coverage-floors]
+"theoros_models/numerics.py" = 95.0
+"theoros_models/compiler/" = 95.0
+"theoros_models/quant/" = 95.0
+"" = 90.0

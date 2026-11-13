@@ -28,9 +28,30 @@ Keep a Changelog and the project uses semantic versioning.
   arithmetic, Q31 multipliers, high multiplication, requantisation and affine
   int8 quantisation, specified in docs/NUMERICS.md.
 - `theoros sensors list`, `show` and `validate` commands.
+- PyTorch dependency with lock file variants for CPU and CUDA 12.6
+  (`--extra cpu`, `--extra cu126`); deterministic algorithms in tests.
+- D4 group, lift, group, depthwise and invariant convolutions and per-field
+  batch normalisation, exactly equivariant to the 8 symmetries of the square
+  (MOD-REQ-007, MOD-REQ-062, MOD-REQ-063).
+- Spectral hypernetwork stem generating per-band 1 x 1 kernels from centre
+  wavelength, FWHM and GSD (MOD-REQ-060, MOD-REQ-061).
+- Inverted residual backbone at strides 4, 8 and 16, feature pyramid to
+  stride 4, and cloud, land and water, vessel and fire heads (MOD-REQ-011,
+  MOD-REQ-064).
+- Capability gating with a physical justification for every spectral window
+  (MOD-REQ-004, MOD-REQ-065).
+- Tiers nano, base and max, and an analytic budget of parameters, MACs, peak
+  activation memory and int8 size, checked against the built network
+  (MOD-REQ-001, MOD-REQ-002, MOD-REQ-010, MOD-REQ-066, MOD-REQ-067).
+- `theoros budget` command; `theoros sensors show` reports capabilities.
+- docs/ARCHITECTURE.md.
 
 ### Changed
 
 - docs/REQUIREMENTS.md uses the block format of the engineering standards and
   records a verification status for each requirement. MOD-REQ-001 to
   MOD-REQ-008 keep their wording.
+- MOD-REQ-010 counts tier sizes on the compiled flight graph at 13 bands, the
+  form the nominal sizes and the 1 MiB limit refer to.
+- CI runs on every push, installs the CPU build of PyTorch, and checks the
+  built wheel with `theoros budget`.

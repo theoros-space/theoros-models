@@ -17,8 +17,10 @@ them.
 
 from __future__ import annotations
 
+import math
 from collections.abc import Sequence
 from dataclasses import dataclass
+from typing import cast
 
 import torch
 from torch import Tensor, nn
@@ -31,6 +33,10 @@ from theoros_models.layers.heads import HEAD_NAMES, HEAD_SPECS, DenseHead
 from theoros_models.layers.neck import FeaturePyramid
 from theoros_models.layers.stem import CENTRE, GSD, SpectralStem
 from theoros_models.sensors.schema import SensorProfile
+
+# Initial probability of the sparse logits (vessel centres, active fire), so
+# training starts near the background rate instead of at one half.
+SPARSE_PRIOR = 0.01
 
 # Metadata written into padded band slots; any finite positive values work
 # because padded bands are masked out of the stem.
@@ -164,6 +170,11 @@ class TheorosNet(nn.Module):
                 for head in HEAD_SPECS
             }
         )
+        with torch.no_grad():
+            prior_logit = math.log(SPARSE_PRIOR / (1.0 - SPARSE_PRIOR))
+            for name in ("vessel", "fire"):
+                head = cast(DenseHead, self.heads[name])
+                head.output.bias[0] = prior_logit
 
     def features(self, x: Tensor, bands: BandBatch) -> list[Tensor]:
         """Return the backbone outputs at strides 4, 8 and 16.

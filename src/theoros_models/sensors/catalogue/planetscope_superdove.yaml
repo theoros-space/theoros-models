@@ -1,0 +1,28 @@
+# SPDX-License-Identifier: LicenseRef-Theoros-Open-1.0
+# Copyright (c) 2026 Theoros
+schema_version: 1
+name: planetscope_superdove
+platform: PlanetScope
+instrument: SuperDove (PSB.SD)
+description: >-
+  Band values are not yet verified against the primary source.
+  The eight SuperDove bands. Centre and FWHM are the midpoint and width of
+  the published spectral ranges. GSD is the nominal 3.7 m at the reference
+  altitude. The encoding assumes TOA reflectance scaled by 10000; analytic
+  radiance products are converted with their per-scene reflectance
+  coefficients upstream of the model.
+reference: >-
+  Planet Labs, PlanetScope Product Specifications, version not yet confirmed
+  (SuperDove PSB.SD spectral bands and ground sample distance).
+encoding:
+  scale: 1.0e-4
+  offset: 0.0
+bands:
+  - {name: coastal_blue, centre_nm: 441.5, fwhm_nm: 21.0, gsd_m: 3.7}
+  - {name: blue, centre_nm: 490.0, fwhm_nm: 50.0, gsd_m: 3.7}
+  - {name: green_i, centre_nm: 531.0, fwhm_nm: 36.0, gsd_m: 3.7}
+  - {name: green, centre_nm: 565.0, fwhm_nm: 36.0, gsd_m: 3.7}
+  - {name: yellow, centre_nm: 610.0, fwhm_nm: 20.0, gsd_m: 3.7}
+  - {name: red, centre_nm: 665.0, fwhm_nm: 30.0, gsd_m: 3.7}
+  - {name: red_edge, centre_nm: 705.0, fwhm_nm: 16.0, gsd_m: 3.7}
+  - {name: nir, centre_nm: 865.0, fwhm_nm: 40.0, gsd_m: 3.7}

@@ -1,0 +1,30 @@
+# SPDX-License-Identifier: LicenseRef-Theoros-Open-1.0
+# Copyright (c) 2026 Theoros
+schema_version: 1
+name: landsat8_oli
+platform: Landsat-8
+instrument: OLI
+description: >-
+  Band values are not yet verified against the primary source.
+  The eight 30 m multispectral OLI bands; the 15 m panchromatic band 8 is
+  omitted. Centre and FWHM are the midpoint and width of the nominal USGS
+  spectral ranges. Collection 2 Level-1 products store reflectance as
+  2.0e-5 * DN - 0.1 before the sun elevation correction, which is applied
+  upstream of the model.
+reference: >-
+  USGS, LSDS-1574, Landsat 8 (L8) Data Users Handbook, version not yet
+  confirmed (nominal spectral ranges); USGS, Landsat 8-9 OLI/TIRS Collection 2
+  Level 1 Data Format Control Book, version not yet confirmed (reflectance
+  rescaling coefficients).
+encoding:
+  scale: 2.0e-5
+  offset: -0.1
+bands:
+  - {name: B1, centre_nm: 440.0, fwhm_nm: 20.0, gsd_m: 30.0}
+  - {name: B2, centre_nm: 480.0, fwhm_nm: 60.0, gsd_m: 30.0}
+  - {name: B3, centre_nm: 560.0, fwhm_nm: 60.0, gsd_m: 30.0}
+  - {name: B4, centre_nm: 655.0, fwhm_nm: 30.0, gsd_m: 30.0}
+  - {name: B5, centre_nm: 865.0, fwhm_nm: 30.0, gsd_m: 30.0}
+  - {name: B9, centre_nm: 1370.0, fwhm_nm: 20.0, gsd_m: 30.0}
+  - {name: B6, centre_nm: 1610.0, fwhm_nm: 80.0, gsd_m: 30.0}
+  - {name: B7, centre_nm: 2200.0, fwhm_nm: 180.0, gsd_m: 30.0}

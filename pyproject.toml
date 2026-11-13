@@ -22,8 +22,16 @@ dependencies = [
   "numpy>=1.26,<3",
   "pydantic>=2.7,<3",
   "pyyaml>=6.0,<7",
+  "torch>=2.6,<2.15",
 ]
 dynamic = ["version"]
+
+# Pick exactly one accelerator build with uv: --extra cpu for laptops and CI,
+# --extra cu126 for the MeluXina A100 nodes. Without an extra, torch comes
+# from PyPI with its default CUDA build.
+[project.optional-dependencies]
+cpu = ["torch>=2.6,<2.15"]
+cu126 = ["torch>=2.6,<2.15"]
 
 [project.scripts]
 theoros = "theoros_models.cli:main"
@@ -40,6 +48,25 @@ dev = [
   "ruff>=0.6",
   "types-pyyaml>=6.0",
 ]
+
+[tool.uv]
+conflicts = [[{ extra = "cpu" }, { extra = "cu126" }]]
+
+[tool.uv.sources]
+torch = [
+  { index = "pytorch-cpu", extra = "cpu" },
+  { index = "pytorch-cu126", extra = "cu126" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu126"
+url = "https://download.pytorch.org/whl/cu126"
+explicit = true
 
 [tool.hatch.version]
 path = "src/theoros_models/version.py"

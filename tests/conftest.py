@@ -4,6 +4,7 @@
 
 import os
 
+import torch
 from hypothesis import HealthCheck, settings
 
 settings.register_profile("default", derandomize=True, deadline=None, max_examples=100)
@@ -15,3 +16,6 @@ settings.register_profile(
     suppress_health_check=[HealthCheck.too_slow],
 )
 settings.load_profile(os.environ.get("HYPOTHESIS_PROFILE", "default"))
+
+torch.use_deterministic_algorithms(True)
+torch.set_num_threads(min(4, torch.get_num_threads()))
